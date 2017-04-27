@@ -3,6 +3,9 @@
 // Distributed under the MIT License
 
 #include "mx/core/Decimals.h"
+#include "mx/core/PreciseDecimal.h"
+#include "mx/core/UnusedParameter.h"
+
 #include <sstream>
 #include <iomanip>
 
@@ -13,59 +16,103 @@ namespace mx
         class Decimal::impl
         {
         public:
-            impl( const DecimalType value )
-            :myValue( value ) {}
-            ~impl () {}
+            impl( short inMaxIntegerDigits,
+                  short inMaxDecimalDigits,
+                  const DecimalType inValue )
+            :myValue( inMaxIntegerDigits, inMaxDecimalDigits, inValue ) {}
+            ~impl ()
+            {
+
+            }
             
             void setValue( DecimalType value )
             {
-                myValue = value;
+                myValue.setValue( value );
             }
+
+
             DecimalType getValue() const
             {
-                return myValue;
+                return myValue.getValue();
             }
+
+
+            std::string toString() const
+            {
+                return myValue.toString();
+            }
+
+
+            std::ostream& toStream( std::ostream& os ) const
+            {
+                return myValue.toStream( os );
+            }
+
         private:
-            DecimalType myValue;
+            PreciseDecimal myValue;
+
         };
         
         
         Decimal::Decimal( DecimalType value )
-        :myImpl( new Decimal::impl( value ) )
-        {}
+        :myImpl( new Decimal::impl( 19, DEFAULT_PRECISION, value ) )
+        {
+
+        }
+
         
         Decimal::Decimal()
-        :myImpl( new Decimal::impl( 0 ) )
-        {}
-        
-        Decimal::~Decimal() {}
+        :myImpl( new Decimal::impl( 19, DEFAULT_PRECISION, 0 ) )
+        {
+
+        }
+
+
+        Decimal::~Decimal()
+        {
+
+        }
         
         Decimal::Decimal( const Decimal& other )
-        :myImpl( new Decimal::impl( other.getValue() ) )
-        { }
+        :myImpl( new Decimal::impl( *other.myImpl ) )
+        {
+
+        }
+
+
         Decimal::Decimal( Decimal&& other )
         :myImpl( std::move( other.myImpl ) )
-        {}
-        
+        {
+
+        }
+
+
         Decimal& Decimal::operator=( const Decimal& other )
         {
-            this->myImpl = std::unique_ptr<Decimal::impl>( new Decimal::impl( other.getValue() ) );
+            this->myImpl = std::unique_ptr<Decimal::impl>( new Decimal::impl( *other.myImpl ) );
             return *this;
         }
+
+
         Decimal& Decimal::operator=( Decimal&& other )
         {
             myImpl = std::move( other.myImpl );
             return *this;
         }
-        
+
+
         DecimalType Decimal::getValue() const
         {
             return myImpl->getValue();
         }
+
+
         void Decimal::setValue( DecimalType value )
         {
             myImpl->setValue( value );
         }
+
+
         void Decimal::parse( const std::string& value )
         {
             std::stringstream ss( value );
@@ -76,42 +123,40 @@ namespace mx
             }
             setValue( temp );
         }
-        
+
+
+        std::string Decimal::toString() const
+        {
+            return myImpl->toString();
+        }
+
+
+        std::ostream& Decimal::toStream( std::ostream& os ) const
+        {
+            return myImpl->toStream( os );
+        }
+
+
         std::string toString( const Decimal& value, unsigned int precision )
         {
-            std::stringstream ss;
-            ss << std::fixed;
-            ss << std::setprecision( static_cast<int>( precision ) );
-            ss << value.getValue();
-            /* remove trailing zeros */
-            std::string s = ss.str();
-            s.erase(s.find_last_not_of('0') + 1, std::string::npos);
-            
-            if(s[s.size()-1] == '.')
-            {
-                s.erase(s.end()-1);
-            }
-
-            if ( s == "-0" )
-            {
-                s = "0";
-            }
-            
-            return s;
+            MX_UNUSED( precision );
+            return value.toString();
         }
 
 
         std::ostream& toStream( std::ostream& os, const Decimal& value, unsigned int precision )
         {
-            return os << toString( value, precision );
+            MX_UNUSED( precision );
+            return value.toStream( os );
         }
 
 
         std::ostream& operator<<( std::ostream& os, const Decimal& value )
         {
-            return os << toString( value );
+            return value.toStream( os );
         }
-        
+
+
         DecimalRange::DecimalRange( DecimalType min, DecimalType max, DecimalType value )
         :Decimal( value )
         ,myMin( min )
@@ -119,24 +164,31 @@ namespace mx
         {
             setValue( value );
         }
-        // DecimalRange::~DecimalRange() {}
+
+
         DecimalRange& DecimalRange::operator=( const DecimalRange& other )
         {
             setValue( other.getValue() );
             return *this;
         }
+
+
         DecimalRange::DecimalRange( DecimalRange&& other )
         :Decimal( std::move( other ) )
         ,myMin( std::move( other.myMin ) )
         ,myMax( std::move( other.myMax ) )
-        {}
-        
+        {
+
+        }
+
+
         DecimalRange& DecimalRange::operator=( DecimalRange&& other )
         {
             setValue( other.getValue() );
             return *this;
         }
-        
+
+
         void DecimalRange::setValue( DecimalType value )
         {
             if ( value < myMin )
@@ -152,6 +204,8 @@ namespace mx
                 Decimal::setValue( value );
             }
         }
+
+
         void DecimalRange::parse( const std::string& value )
         {
             std::stringstream ss( value );
@@ -168,43 +222,54 @@ namespace mx
         {
             setValue( value );
         }
-        
+
+
         PositiveDecimal::PositiveDecimal()
-        :Decimal( 1 ) {}
+        :Decimal( 1 )
+        {
+
+        }
         
-        // PositiveDecimal::~PositiveDecimal() {}
-        
+
         void PositiveDecimal::setValue( DecimalType value )
         {
             if ( value <= 0 )
             {
-                Decimal::setValue( kNonZeroAmount );
+                Decimal::setValue( NON_ZERO_AMOUNT );
             }
             else
             {
                 Decimal::setValue( value );
             }
         }
+
+
         void PositiveDecimal::parse( const std::string& value )
         {
             std::stringstream ss( value );
-            DecimalType temp = kNonZeroAmount;
+            DecimalType temp = NON_ZERO_AMOUNT;
             if ((ss >> temp).fail() || !(ss >> std::ws).eof())
             {
                 return;
             }
             setValue( temp );
         }
-        
+
+
         NonNegativeDecimal::NonNegativeDecimal( DecimalType value )
         :Decimal( value )
         {
             setValue( value );
         }
+
+
         NonNegativeDecimal::NonNegativeDecimal()
-        :Decimal( 0 ) {}
+        :Decimal( 0 )
+        {
+
+        }
         
-        // NonNegativeDecimal::~NonNegativeDecimal() {}
+
         void NonNegativeDecimal::setValue( DecimalType value )
         {
             if ( value < 0 )
@@ -216,6 +281,8 @@ namespace mx
                 Decimal::setValue( value );
             }
         }
+
+
         void NonNegativeDecimal::parse( const std::string& value )
         {
             std::stringstream ss( value );
@@ -226,34 +293,49 @@ namespace mx
             }
             this->setValue( temp );
         }
+
         
         Percent::Percent( DecimalType value )
         :DecimalRange( 0, 100, value )
-        {}
-        
+        {
+
+        }
+
+
         Percent::Percent()
         :DecimalRange( 0, 100, 0 )
-        {}
+        {
+
+        }
         
         RotationDegrees::RotationDegrees()
         :DecimalRange( -180, 180, 0 )
-        {}
-        
+        {
+
+        }
+
+
         RotationDegrees::RotationDegrees( DecimalType value )
         :DecimalRange( -180, 180, value )
-        {}
+        {
+
+        }
+
         
         TrillBeats::TrillBeats( DecimalType value )
         :Decimal( value )
         {
             this->setValue( value );
         }
-        
-        TrillBeats::TrillBeats()
-        :Decimal( 2 ) {}
 
-        // TrillBeats::~TrillBeats() {}
-        
+
+        TrillBeats::TrillBeats()
+        :Decimal( 2 )
+        {
+
+        }
+
+
         void TrillBeats::setValue( DecimalType value )
         {
             if ( value < 2 )
@@ -265,6 +347,8 @@ namespace mx
                 Decimal::setValue( value );
             }
         }
+
+        
         void TrillBeats::parse( const std::string& value )
         {
             std::stringstream ss( value );
