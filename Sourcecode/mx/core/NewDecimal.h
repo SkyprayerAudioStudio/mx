@@ -5,6 +5,7 @@
 #pragma once
 
 #include <cstdint>
+#include <iostream>
 
 namespace mx
 {
@@ -35,6 +36,8 @@ namespace mx
             short getMaxDecimalDigits() const;
             DecimalType getMaxExpressibleNumber() const;
             DecimalType getMinExpressibleNumber() const;
+            std::ostream& toStream( std::ostream& os ) const;
+            std::string toString() const;
 
         private:
             bool myIsNegative;
@@ -42,12 +45,17 @@ namespace mx
             uint64_t myDecimal;
             short myMaxIntegerDigits;
             short myMaxDecimalDigits;
-            DecimalType myMaxExpressibleNumber;
+            uint64_t myMaxExpressibleInteger;
+            uint64_t myMaxExpressibleDecimal;
 
         private:
             void setMaxIntegerDigits( short inNumDigits );
             void setMaxDecimalDigits( short inNumDigits );
+            static decltype( myInteger ) findMax( short inNumDigits );
+            void setMaxExpressibleInteger();
+            void setMaxExpressibleDecimal();
             void setMaxExpressibleNumber();
+            static DecimalType express( uint64_t inInteger, uint64_t inDecimal, short inMaxDecimalDigits, bool inIsNegative );
 
         private:
             static constexpr const short DEFAULT_MAX_INTEGER_DIGITS = 10;

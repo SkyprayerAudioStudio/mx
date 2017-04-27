@@ -22,6 +22,7 @@ TEST( ctorSSD, NewDecimalTest )
 }
 T_END;
 
+
 TEST( ctorSS, NewDecimalTest )
 {
     NewDecimal d{ 4, 1 };
@@ -32,6 +33,7 @@ TEST( ctorSS, NewDecimalTest )
     CHECK_DOUBLES_EQUAL( 0, d.getValue(), 0.00001 );
 }
 T_END;
+
 
 TEST( ctorD, NewDecimalTest )
 {
@@ -44,6 +46,7 @@ TEST( ctorD, NewDecimalTest )
 }
 T_END;
 
+
 TEST( ctor, NewDecimalTest )
 {
     NewDecimal d{};
@@ -55,6 +58,7 @@ TEST( ctor, NewDecimalTest )
 }
 T_END;
 
+
 TEST( getValue, NewDecimalTest )
 {
     const DecimalType expected = 123.654;
@@ -63,6 +67,7 @@ TEST( getValue, NewDecimalTest )
     CHECK_DOUBLES_EQUAL( expected, actual, 0.0001 );
 }
 T_END;
+
 
 TEST( getValueRounded, NewDecimalTest )
 {
@@ -76,6 +81,7 @@ TEST( getValueRounded, NewDecimalTest )
 }
 T_END;
 
+
 TEST( setValue, NewDecimalTest )
 {
     const DecimalType expected = 8329.9238;
@@ -87,6 +93,7 @@ TEST( setValue, NewDecimalTest )
     CHECK_DOUBLES_EQUAL( expected, actual, 0.0001 );
 }
 T_END;
+
 
 TEST( setValueRounded, NewDecimalTest )
 {
@@ -100,5 +107,59 @@ TEST( setValueRounded, NewDecimalTest )
     CHECK_DOUBLES_EQUAL( expected, actual, 0.0000001 );
 }
 T_END;
+
+
+TEST( tooBig, NewDecimalTest )
+{
+    const short numIntDigits = 3;
+    const short numDecDeigits = 1;
+    const DecimalType value = 8769.5;
+    const DecimalType expected = 999.9;
+    NewDecimal d{ numIntDigits, numDecDeigits };
+    d.setValue( value );
+    const auto actual = d.getValue();
+    CHECK_DOUBLES_EQUAL( expected, actual, 0.0000001 );
+}
+T_END;
+
+
+TEST( str01, NewDecimalTest )
+{
+    const short numIntDigits = 4;
+    const short numDecDeigits = 3;
+    const DecimalType value = 8769.5;
+    const std::string expected = "8769.5";
+    NewDecimal d{ numIntDigits, numDecDeigits, value };
+    const auto actual = d.toString();
+    CHECK_EQUAL( expected, actual );
+}
+T_END;
+
+
+TEST( str02, NewDecimalTest )
+{
+    const short numIntDigits = 4;
+    const short numDecDeigits = 3;
+    const DecimalType value = 1234.99999;
+    const std::string expected = "1235";
+    NewDecimal d{ numIntDigits, numDecDeigits, value };
+    const auto actual = d.toString();
+    CHECK_EQUAL( expected, actual );
+}
+T_END;
+
+
+TEST( str03, NewDecimalTest )
+{
+    const short numIntDigits = 4;
+    const short numDecDeigits = 10;
+    const DecimalType value = -0.0000000001;
+    const std::string expected = "-0.0000000001";
+    NewDecimal d{ numIntDigits, numDecDeigits, value };
+    const auto actual = d.toString();
+    CHECK_EQUAL( expected, actual );
+}
+T_END;
+
 
 #endif
