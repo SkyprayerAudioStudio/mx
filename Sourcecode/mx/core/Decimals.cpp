@@ -16,53 +16,127 @@ namespace mx
         class Decimal::impl
         {
         public:
-            impl( short inMaxIntegerDigits,
-                  short inMaxDecimalDigits,
-                  const DecimalType inValue )
-            :myValue( inMaxIntegerDigits, inMaxDecimalDigits, inValue ) {}
-            ~impl ()
+            impl( const DecimalType inValue )
+            : myValue( nullptr )
+            {
+                setValue( inValue );
+            }
+
+
+            ~impl()
             {
 
             }
+
+
+            impl( const impl& other )
+            : myValue( nullptr )
+            {
+                if( other.myValue )
+                {
+                    myValue = std::make_unique<PreciseDecimal>( *other.myValue );
+                }
+            }
+
+
+            impl( impl&& other ) = default;
+
+
+            impl& operator=( const impl& other )
+            {
+                if ( other.myValue )
+                {
+                    myValue = std::make_unique<PreciseDecimal>( *other.myValue );
+                }
+                else
+                {
+                    myValue = nullptr;
+                }
+
+                return *this;
+            }
+
+
+            impl& operator=( impl&& other ) = default;
+
             
             void setValue( DecimalType value )
             {
-                myValue.setValue( value );
+                if( !myValue )
+                {
+                    if( value == 0.0 )
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        allocate();
+                    }
+                }
+                myValue->setValue( value );
             }
 
 
             DecimalType getValue() const
             {
-                return myValue.getValue();
+                if( !myValue )
+                {
+                    return 0.0;
+                }
+                else
+                {
+                    return myValue->getValue();
+                }
             }
 
 
             std::string toString() const
             {
-                return myValue.toString();
+                if( !myValue )
+                {
+                    return "0";
+                }
+                else
+                {
+                    return myValue->toString();
+                }
             }
 
 
             std::ostream& toStream( std::ostream& os ) const
             {
-                return myValue.toStream( os );
+                if( !myValue )
+                {
+                    os << "0";
+                    return os;
+                }
+                else
+                {
+                    return myValue->toStream( os );
+                }
+            }
+
+
+            void allocate()
+            {
+                myValue = std::make_unique<PreciseDecimal>( 19, DEFAULT_PRECISION, 0.0 );
             }
 
         private:
-            PreciseDecimal myValue;
-
+            std::mutex myMutex;
+            mutable std::unique_ptr<PreciseDecimal> myValue;
         };
         
         
         Decimal::Decimal( DecimalType value )
-        :myImpl( new Decimal::impl( 19, DEFAULT_PRECISION, value ) )
+        :myImpl( new Decimal::impl( value ) )
         {
 
         }
 
         
         Decimal::Decimal()
-        :myImpl( new Decimal::impl( 19, DEFAULT_PRECISION, 0 ) )
+        :myImpl( new Decimal::impl( 0.0 ) )
         {
 
         }
