@@ -2,7 +2,7 @@
 // Copyright (c) by Matthew James Briggs
 // Distributed under the MIT License
 
-#include "mx/core/NewDecimal.h"
+#include "mx/core/PreciseDecimal.h"
 
 #include <string>
 #include <sstream>
@@ -12,7 +12,7 @@ namespace mx
 {
     namespace core
     {
-        NewDecimal::NewDecimal( short inMaxIntegerDigits, short inMaxDecimalDigits, DecimalType inValue )
+        PreciseDecimal::PreciseDecimal( short inMaxIntegerDigits, short inMaxDecimalDigits, DecimalType inValue )
         : myIsNegative{ inValue < 0.0 }
         , myInteger{ 0 }
         , myDecimal{ 0 }
@@ -26,34 +26,34 @@ namespace mx
         }
 
 
-        NewDecimal::NewDecimal( short inMaxIntegerDigits, short inMaxDecimalDigits )
-        : NewDecimal{ inMaxIntegerDigits, inMaxDecimalDigits, 0.0 }
+        PreciseDecimal::PreciseDecimal( short inMaxIntegerDigits, short inMaxDecimalDigits )
+        : PreciseDecimal{ inMaxIntegerDigits, inMaxDecimalDigits, 0.0 }
         {
 
         }
 
 
-        NewDecimal::NewDecimal( DecimalType inValue )
-        : NewDecimal{ DEFAULT_MAX_INTEGER_DIGITS, DEFAULT_MAX_DECIMAL_DIGITS, inValue }
+        PreciseDecimal::PreciseDecimal( DecimalType inValue )
+        : PreciseDecimal{ DEFAULT_MAX_INTEGER_DIGITS, DEFAULT_MAX_DECIMAL_DIGITS, inValue }
         {
 
         }
 
 
-        NewDecimal::NewDecimal()
-        : NewDecimal{ DEFAULT_MAX_INTEGER_DIGITS, DEFAULT_MAX_DECIMAL_DIGITS, 0.0 }
+        PreciseDecimal::PreciseDecimal()
+        : PreciseDecimal{ DEFAULT_MAX_INTEGER_DIGITS, DEFAULT_MAX_DECIMAL_DIGITS, 0.0 }
         {
 
         }
 
 
-        DecimalType NewDecimal::getValue() const
+        DecimalType PreciseDecimal::getValue() const
         {
             return express( myInteger, myDecimal, myMaxDecimalDigits, myIsNegative );
         }
 
 
-        void NewDecimal::setValue( DecimalType inValue )
+        void PreciseDecimal::setValue( DecimalType inValue )
         {
             if ( inValue < 0 )
             {
@@ -93,31 +93,31 @@ namespace mx
         }
 
 
-        short NewDecimal::getMaxIntegerDigits() const
+        short PreciseDecimal::getMaxIntegerDigits() const
         {
             return myMaxIntegerDigits;
         }
 
 
-        short NewDecimal::getMaxDecimalDigits() const
+        short PreciseDecimal::getMaxDecimalDigits() const
         {
             return myMaxDecimalDigits;
         }
 
 
-        DecimalType NewDecimal::getMaxExpressibleNumber() const
+        DecimalType PreciseDecimal::getMaxExpressibleNumber() const
         {
             return express( myMaxExpressibleInteger, myMaxExpressibleDecimal, myMaxDecimalDigits, myIsNegative );
         }
 
 
-        DecimalType NewDecimal::getMinExpressibleNumber() const
+        DecimalType PreciseDecimal::getMinExpressibleNumber() const
         {
             return -1 * getMaxExpressibleNumber();
         }
 
 
-        std::ostream& NewDecimal::toStream( std::ostream& os ) const
+        std::ostream& PreciseDecimal::toStream( std::ostream& os ) const
         {
             if( myInteger == 0 && myDecimal == 0 )
             {
@@ -192,7 +192,7 @@ namespace mx
         }
 
 
-        std::string NewDecimal::toString() const
+        std::string PreciseDecimal::toString() const
         {
             std::stringstream ss;
             toStream( ss );
@@ -200,7 +200,7 @@ namespace mx
         }
 
 
-        void NewDecimal::setMaxIntegerDigits( short inNumDigits )
+        void PreciseDecimal::setMaxIntegerDigits( short inNumDigits )
         {
             if( inNumDigits < 1 )
             {
@@ -218,7 +218,7 @@ namespace mx
         }
 
 
-        void NewDecimal::setMaxDecimalDigits( short inNumDigits )
+        void PreciseDecimal::setMaxDecimalDigits( short inNumDigits )
         {
             if( inNumDigits < 1 )
             {
@@ -236,7 +236,7 @@ namespace mx
         }
 
 
-        decltype( NewDecimal::myInteger ) NewDecimal::findMax( short inNumDigits )
+        decltype( PreciseDecimal::myInteger ) PreciseDecimal::findMax( short inNumDigits )
         {
             decltype( myInteger ) mult = 0;
             decltype( myInteger ) result = 0;
@@ -252,25 +252,25 @@ namespace mx
         }
 
 
-        void NewDecimal::setMaxExpressibleInteger()
+        void PreciseDecimal::setMaxExpressibleInteger()
         {
             myMaxExpressibleInteger = findMax( getMaxIntegerDigits() );
         }
 
 
-        void NewDecimal::setMaxExpressibleDecimal()
+        void PreciseDecimal::setMaxExpressibleDecimal()
         {
             myMaxExpressibleDecimal = findMax( getMaxDecimalDigits() );
         }
 
 
-        void NewDecimal::setMaxExpressibleNumber()
+        void PreciseDecimal::setMaxExpressibleNumber()
         {
             setMaxExpressibleInteger();
             setMaxExpressibleDecimal();
         }
 
-        DecimalType NewDecimal::express( uint64_t inInteger, uint64_t inDecimal, short inMaxDecimalDigits, bool inIsNegative )
+        DecimalType PreciseDecimal::express( uint64_t inInteger, uint64_t inDecimal, short inMaxDecimalDigits, bool inIsNegative )
         {
             const auto integer = static_cast<DecimalType>( inInteger );
             const auto decimalPartAsFloat = static_cast<DecimalType>( inDecimal );

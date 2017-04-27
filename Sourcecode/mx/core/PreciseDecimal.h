@@ -23,13 +23,13 @@ namespace mx
         /// a minimum precision setting of MaxIntegerDigits = 3,
         /// MaxDecimalDigits = 4.
         ///
-        class NewDecimal
+        class PreciseDecimal
         {
         public:
-            NewDecimal( short inMaxIntegerDigits, short inMaxDecimalDigits, DecimalType inValue );
-            NewDecimal( short inMaxIntegerDigits, short inMaxDecimalDigits );
-            NewDecimal( DecimalType inValue);
-            NewDecimal();
+            PreciseDecimal( short inMaxIntegerDigits, short inMaxDecimalDigits, DecimalType inValue );
+            PreciseDecimal( short inMaxIntegerDigits, short inMaxDecimalDigits );
+            PreciseDecimal( DecimalType inValue);
+            PreciseDecimal();
             DecimalType getValue() const;
             void setValue( DecimalType inValue );
             short getMaxIntegerDigits() const;
