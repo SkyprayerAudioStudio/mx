@@ -22,8 +22,10 @@
     <measure number="2">
       <harmony>
         <root>
+        <?processing-instruction root1?>
           <root-step>D</root-step>
         </root>
+        <?processing-instruction root2?>
         <kind text="m">minor</kind>
         <bass>
           <bass-step>C</bass-step>
@@ -42,12 +44,13 @@
         <staff>1</staff>
       </harmony>
     </measure>
+    <?processing-instruction measure?>
     <measure number="4">
       <forward>
         <duration>101</duration>
       </forward>
       <harmony>
-        <?mx-misc-data-hello blerpidoda?>
+        <?processing-instruction harmony?>
         <root>
           <root-step>B</root-step>
         </root>

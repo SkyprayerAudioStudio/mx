@@ -4,6 +4,7 @@
 
 #include "mx/core/ElementInterface.h"
 #include "mx/xml/XElement.h"
+#include "mx/xml/XElementIterator.h"
 #include <sstream>
 
 namespace mx
@@ -131,6 +132,18 @@ namespace mx
             while( lookahead != nullptr && lookahead->getIsProcessingInstruction() )
             {
                 lookahead = lookahead->getNextSibling();
+            }
+
+            if( xelement.getType() == xml::XElementType::element )
+            {
+                auto childIter = xelement.begin();
+                const auto childEnd = xelement.end();
+
+                while( childIter != childEnd && childIter->getIsProcessingInstruction() )
+                {
+                    std::cout << "hello";
+                    ++childIter;
+                }
             }
 
             return result;

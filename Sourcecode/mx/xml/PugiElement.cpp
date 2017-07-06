@@ -29,7 +29,13 @@ namespace mx
         : myNode( node )
         , myXDoc( xdoc )
         {
-            MX_CHECK_NODE_ELEMENT;
+            const auto type = myNode.type();
+            const bool isElement = type == pugi::node_element;
+            const bool isProcessingInstruction = type == pugi::node_pi;
+            if ((!isElement) && (!isProcessingInstruction)) {
+                MX_THROW( "bad internal state, node should be an element" );
+            }
+//            MX_CHECK_NODE_ELEMENT;
         }
 
 
