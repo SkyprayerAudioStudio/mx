@@ -69,7 +69,9 @@ namespace mx
         std::ostream& ElementInterface::toStream( std::ostream& os, const int indentLevel ) const
         {
             indent( os, indentLevel );
-            if ( hasContents() )
+            const bool isSelfClosing = !hasContents();
+
+            if ( !isSelfClosing )
             {
                 streamOpenTag( os );
                 bool isOneLineOnly = false;
@@ -141,12 +143,29 @@ namespace mx
 
                 while( childIter != childEnd && childIter->getIsProcessingInstruction() )
                 {
-                    std::cout << "hello";
                     ++childIter;
                 }
             }
 
             return result;
+        }
+
+
+        const ProcessingInstructions& ElementInterface::getProcessingInstructions() const
+        {
+            return myProcessingInstructions;
+        }
+
+
+        void ElementInterface::clearProcessingInstructions()
+        {
+            myProcessingInstructions.clear();
+        }
+
+
+        void ElementInterface::addProcessingInstruction( ProcessingInstruction inProcessingInstruction )
+        {
+            myProcessingInstructions.emplace_back( std::move( inProcessingInstruction ) );
         }
 
 
