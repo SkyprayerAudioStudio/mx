@@ -51,6 +51,11 @@ namespace mx
 
         private:
             ProcessingInstructions myProcessingInstructions;
+            std::ostream& writeChildProcessingInstructions( std::ostream& os, const int indentLevel ) const;
+            std::ostream& writeSiblingProcessingInstructions( std::ostream& os, const int indentLevel ) const;
+            std::ostream& writeAllProcessingInstructions( std::ostream& os, const int indentLevel ) const;
+            std::ostream& streamWithoutProcessingInstructions( std::ostream& os, const int indentLevel ) const;
+            std::ostream& streamWithProcessingInstructions( std::ostream& os, const int indentLevel, const bool inHasChildren ) const;
         };
         
         std::ostream& indent( std::ostream& os, const int indentLevel );
