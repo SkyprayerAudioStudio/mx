@@ -9,7 +9,7 @@
 #include "mx/xml/XThrow.h"
 
 #define MX_CHECK_NULL_NODE if( getIsNull() ) { MX_THROW_XNULL; }
-#define MX_CHECK_NODE_ELEMENT if ( myNode.type() != pugi::node_element && myNode.type() != pugi::node_pi ) { MX_THROW( "bad internal state, node should be an element" ); }
+#define MX_CHECK_NODE_ELEMENT if ( myNodeType != pugi::node_element && myNodeType != pugi::node_pi ) { MX_THROW( "bad internal state, node should be an element" ); }
 
 namespace mx
 {
@@ -18,8 +18,10 @@ namespace mx
         PugiElement::PugiElement()
         : myNode()
         , myXDoc( XDocCPtr{ nullptr} )
+        , myNodeType{ pugi::xml_node_type::node_null }
+        , myEndIter{}
         {
-
+            update();
         }
 
 
@@ -28,14 +30,17 @@ namespace mx
             const XDocCPtr& xdoc )
         : myNode( node )
         , myXDoc( xdoc )
+        , myNodeType{ pugi::xml_node_type::node_null }
+        , myEndIter{}
         {
-            const auto type = myNode.type();
-            const bool isElement = type == pugi::node_element;
-            const bool isProcessingInstruction = type == pugi::node_pi;
-            if ((!isElement) && (!isProcessingInstruction)) {
+            update();
+            const bool isElement = myNodeType == pugi::node_element;
+            const bool isProcessingInstruction = myNodeType == pugi::node_pi;
+
+            if( ( !isElement ) && ( !isProcessingInstruction ) )
+            {
                 MX_THROW( "bad internal state, node should be an element" );
             }
-//            MX_CHECK_NODE_ELEMENT;
         }
 
 
@@ -69,21 +74,26 @@ namespace mx
         bool PugiElement::getIsNull() const
         {
             auto ptr = myXDoc.lock();
+
             if( !ptr )
             {
                 return true;
             }
-            else if( myNode.type() != pugi::node_element && myNode.type() != pugi::node_pi )
+            else if( myNodeType != pugi::node_element )
             {
-                return true;
+                if( myNodeType != pugi::node_pi )
+                {
+                    return true;
+                }
             }
+
             return false;
         }
 
 
         bool PugiElement::getIsProcessingInstruction() const
         {
-            if( myNode.type() == pugi::node_pi )
+            if( myNodeType == pugi::node_pi )
             {
                 return true;
             }
@@ -119,6 +129,7 @@ namespace mx
                 return;
             }
             myNode.set_name( name.c_str() );
+            update();
         }
 
 
@@ -138,11 +149,15 @@ namespace mx
             {
                 auto newnode = myNode.prepend_child( pugi::node_pcdata );
                 newnode.set_value( value.c_str() );
+                update();
+                return;
             }
             else if( xetype == XElementType::text )
             {
                 auto it = myNode.begin();
                 it->set_value( value.c_str() );
+                update();
+                return;
             }
         }
 
@@ -198,7 +213,7 @@ namespace mx
         {
             MX_CHECK_NULL_NODE;
             MX_CHECK_NODE_ELEMENT;
-            return XElementIterator( PugiElementIterImpl{ myNode.end(), myNode, myXDoc.lock() } );
+            return myEndIter;
         }
 
 
@@ -223,7 +238,9 @@ namespace mx
         {
             MX_CHECK_NULL_NODE;
             MX_CHECK_NODE_ELEMENT;
-            return XElementPtr{ new PugiElement{ myNode.append_child( name.c_str() ), myXDoc.lock() } };
+            const auto result = XElementPtr{ new PugiElement{ myNode.append_child( name.c_str() ), myXDoc.lock() } };
+            update();
+            return result;
         }
         
         
@@ -231,22 +248,28 @@ namespace mx
         {
             MX_CHECK_NULL_NODE;
             MX_CHECK_NODE_ELEMENT;
-            return XElementPtr{ new PugiElement{ myNode.prepend_child( name.c_str() ), myXDoc.lock() } };
+            const auto result = XElementPtr{ new PugiElement{ myNode.prepend_child( name.c_str() ), myXDoc.lock() } };
+            update();
+            return result;
         }
-        
+
         
         XElementPtr PugiElement::insertSiblingAfter( const std::string& newElementName )
         {
             MX_CHECK_NULL_NODE;
             MX_CHECK_NODE_ELEMENT;
             auto newNode = myNode.parent().insert_child_after( newElementName.c_str(), myNode );
-            return XElementPtr{ new PugiElement{ newNode, myXDoc.lock() } };
+            const auto result = XElementPtr{ new PugiElement{ newNode, myXDoc.lock() } };
+            update();
+            return result;
         }
         
         
         bool PugiElement::removeChild( const std::string& elementName )
         {
-            return myNode.remove_child( elementName.c_str() );
+            const auto result = myNode.remove_child( elementName.c_str() );
+            update();
+            return result;
         }
 
 
@@ -254,7 +277,9 @@ namespace mx
         {
             MX_CHECK_NULL_NODE;
             MX_CHECK_NODE_ELEMENT;
-            return XAttributePtr{ new PugiAttribute{ myNode.append_attribute( name.c_str() ), myNode, myXDoc.lock() } };
+            const auto result = XAttributePtr{ new PugiAttribute{ myNode.append_attribute( name.c_str() ), myNode, myXDoc.lock() } };
+            update();
+            return result;
         }
 
 
@@ -262,7 +287,9 @@ namespace mx
         {
             MX_CHECK_NULL_NODE;
             MX_CHECK_NODE_ELEMENT;
-            return XAttributePtr{ new PugiAttribute{ myNode.prepend_attribute( name.c_str() ), myNode, myXDoc.lock() } };
+            const auto result = XAttributePtr{ new PugiAttribute{ myNode.prepend_attribute( name.c_str() ), myNode, myXDoc.lock() } };
+            update();
+            return result;
         }
         
         
@@ -275,9 +302,17 @@ namespace mx
                 if( iter->getName() == it->name() )
                 {
                     myNode.remove_attribute( *it );
+                    update();
                     return;
                 }
             }
+        }
+
+
+        void PugiElement::update()
+        {
+            myNodeType = myNode.type();
+            myEndIter = XElementIterator( PugiElementIterImpl{ myNode.end(), myNode, myXDoc.lock() } );
         }
     }
 }

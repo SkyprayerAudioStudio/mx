@@ -6,6 +6,7 @@
 
 #include "mx/xml/XElement.h"
 #include "mx/pugixml/pugixml.hpp"
+#include "mx/xml/XElementIterator.h"
 
 #include <memory>
 
@@ -76,6 +77,11 @@ namespace mx
         private:
             pugi::xml_node myNode;
             XDocCWPtr myXDoc;
+            pugi::xml_node_type myNodeType;
+            XElementIterator myEndIter;
+
+        private:
+            void update();
         };
     }
 }

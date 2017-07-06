@@ -277,7 +277,10 @@ namespace mx
                     }
                     decrementIter = true;
                     ++it;
-                    if( it == endIter || it->getName() != "kind" ) { message << "Harmony: 'kind' is a required element and is missing aborting" << std::endl; return false; }
+                    if( it == endIter || it->getName() != "kind" )
+                    {
+                        message << "Harmony: 'kind' is a required element and is missing aborting" << std::endl; return false;
+                    }
                     isSuccess &= item->getKind()->fromXElement( message, *it );
                     decrementIter = true;
                     ++it;
