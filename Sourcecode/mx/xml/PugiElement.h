@@ -59,6 +59,7 @@ namespace mx
             virtual XElementPtr getNextSibling() const override;
 
             virtual XElementIterator begin() const override;
+            virtual XElementIterator beginWithProcessingInstructions() const override;
             virtual XElementIterator end() const override;
 
             virtual XAttributeIterator attributesBegin() const override;

@@ -72,6 +72,10 @@ namespace mx
             // then begin() == end()
             virtual XElementIterator begin() const = 0;
             virtual XElementIterator end() const = 0;
+
+            // if you want iterations to include processing
+            // instructions then use this function.
+            virtual XElementIterator beginWithProcessingInstructions() const = 0;
             
             // STL compliant iterators to the attributes
             // of this element. If this element has no

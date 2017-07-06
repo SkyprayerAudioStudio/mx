@@ -23,9 +23,10 @@
       <harmony>
         <root>
         <?processing-instruction root1?>
+        <?processing-instruction root2?> 
           <root-step>D</root-step>
+          <?processing-instruction root-step?>
         </root>
-        <?processing-instruction root2?>
         <kind text="m">minor</kind>
         <bass>
           <bass-step>C</bass-step>

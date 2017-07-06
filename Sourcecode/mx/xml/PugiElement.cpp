@@ -118,7 +118,15 @@ namespace mx
             {
                 return std::string{};
             }
-            return std::string{ myNode.text().as_string() };
+
+            if (getIsProcessingInstruction())
+            {
+                return std::string{ myNode.value() };
+            }
+            else
+            {
+                return std::string{ myNode.text().as_string() };
+            }
         }
 
 
@@ -203,9 +211,42 @@ namespace mx
 
         XElementIterator PugiElement::begin() const
         {
+            auto iter = beginWithProcessingInstructions();
+            iter.setSkipProcessingInstructions( true );
+
+            if( iter.getSkipProcessingInstructions() &&
+                iter != end() &&
+                iter->getIsProcessingInstruction() )
+            {
+                ++iter;
+            }
+
+            return iter;
+        }
+
+
+        XElementIterator PugiElement::beginWithProcessingInstructions() const
+        {
             MX_CHECK_NULL_NODE;
             MX_CHECK_NODE_ELEMENT;
-            return XElementIterator( PugiElementIterImpl{ myNode.begin(), myNode, myXDoc.lock() } );
+            const auto beginIter = myNode.begin();
+
+            if( beginIter == myNode.end() )
+            {
+                return this->end();
+            }
+
+            const auto type = beginIter->type();
+
+            if( type == pugi::node_element ||
+                type == pugi::node_pi )
+            {
+                auto result = XElementIterator( PugiElementIterImpl{ myNode.begin(), myNode, myXDoc.lock() } );
+                result.setSkipProcessingInstructions( false );
+                return result;
+            }
+
+            return this->end();
         }
 
 

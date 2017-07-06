@@ -134,7 +134,7 @@ namespace mx
 
             if( xelement.getType() == xml::XElementType::element )
             {
-                auto childIter = xelement.begin();
+                auto childIter = xelement.beginWithProcessingInstructions();
                 const auto childEnd = xelement.end();
 
                 while( childIter != childEnd && childIter->getIsProcessingInstruction() )
@@ -151,8 +151,8 @@ namespace mx
             while( lookahead != nullptr && lookahead->getIsProcessingInstruction() )
             {
                 ProcessingInstruction pi{ lookahead->getName(), lookahead->getValue() };
-                addProcessingInstruction( std::move( pi ) );
                 pi.setIsChild( false );
+                addProcessingInstruction( std::move( pi ) );
                 lookahead = lookahead->getNextSibling();
             }
 
