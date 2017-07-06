@@ -143,7 +143,10 @@ namespace mxtest
         openInputFile( inputFile, fullPath );
         auto xdoc = mx::xml::XFactory::makeXDoc();
         xdoc->loadStream( inputFile );
-        inputFile.close();
+//        std::stringstream ss;
+//        xdoc->saveStream( ss );
+//        std::cout << ss.str() << std::endl;
+//        inputFile.close();
         return xdoc;
     }
     

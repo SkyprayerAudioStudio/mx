@@ -45,6 +45,8 @@ namespace mx
             virtual XElementType getType() const override;
             virtual bool getIsNull() const override;
 
+            virtual bool getIsProcessingInstruction() const override;
+
             virtual std::string getName() const override;
             virtual std::string getValue() const override;
 
@@ -53,6 +55,7 @@ namespace mx
 
             virtual XDocCPtr getDoc() const override;
             virtual XElementPtr getParent() const override;
+            virtual XElementPtr getNextSibling() const override;
 
             virtual XElementIterator begin() const override;
             virtual XElementIterator end() const override;

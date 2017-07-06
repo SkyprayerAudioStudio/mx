@@ -47,6 +47,7 @@
         <duration>101</duration>
       </forward>
       <harmony>
+        <?mx-misc-data-hello blerpidoda?>
         <root>
           <root-step>B</root-step>
         </root>

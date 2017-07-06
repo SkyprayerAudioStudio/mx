@@ -40,7 +40,10 @@ namespace mx
             virtual std::ostream& streamSelfCloseTag( std::ostream& os ) const;
             virtual std::ostream& toStream( std::ostream& os, const int indentLevel ) const;
             virtual const std::string getElementName() const;
-            virtual bool fromXElement( std::ostream& message, xml::XElement& xelement ) = 0;
+            virtual bool fromXElement( std::ostream& message, xml::XElement& xelement ) final;
+
+        private:
+            virtual bool fromXElementImpl( std::ostream& message, xml::XElement& xelement ) = 0;
         };
         
         std::ostream& indent( std::ostream& os, const int indentLevel );

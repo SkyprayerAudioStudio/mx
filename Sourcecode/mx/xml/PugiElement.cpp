@@ -9,7 +9,7 @@
 #include "mx/xml/XThrow.h"
 
 #define MX_CHECK_NULL_NODE if( getIsNull() ) { MX_THROW_XNULL; }
-#define MX_CHECK_NODE_ELEMENT if ( myNode.type() != pugi::node_element ) { MX_THROW( "bad internal state, node should be an element" ); }
+#define MX_CHECK_NODE_ELEMENT if ( myNode.type() != pugi::node_element && myNode.type() != pugi::node_pi ) { MX_THROW( "bad internal state, node should be an element" ); }
 
 namespace mx
 {
@@ -67,10 +67,21 @@ namespace mx
             {
                 return true;
             }
-            else if( myNode.type() != pugi::node_element )
+            else if( myNode.type() != pugi::node_element && myNode.type() != pugi::node_pi )
             {
                 return true;
             }
+            return false;
+        }
+
+
+        bool PugiElement::getIsProcessingInstruction() const
+        {
+            if( myNode.type() == pugi::node_pi )
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -141,6 +152,31 @@ namespace mx
             MX_CHECK_NULL_NODE;
             MX_CHECK_NODE_ELEMENT;
             return XElementPtr{ new PugiElement{ myNode.parent(), myXDoc.lock() } };
+        }
+
+
+        XElementPtr PugiElement::getNextSibling() const
+        {
+            MX_CHECK_NULL_NODE;
+            MX_CHECK_NODE_ELEMENT;
+            const auto nextSibling = myNode.next_sibling();
+
+            if( nextSibling.type() == pugi::node_null )
+            {
+                return XElementPtr{};
+            }
+
+            if( nextSibling.type() == pugi::node_element )
+            {
+                return XElementPtr{ new PugiElement{ nextSibling, myXDoc.lock() } };
+            }
+
+            if( nextSibling.type() == pugi::node_pi )
+            {
+                return XElementPtr{ new PugiElement{ nextSibling, myXDoc.lock() } };
+            }
+
+            return XElementPtr{};
         }
 
 

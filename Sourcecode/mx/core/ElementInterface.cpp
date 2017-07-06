@@ -3,6 +3,7 @@
 // Distributed under the MIT License
 
 #include "mx/core/ElementInterface.h"
+#include "mx/xml/XElement.h"
 #include <sstream>
 
 namespace mx
@@ -12,9 +13,14 @@ namespace mx
         const char* INDENT = "   ";
  
         ElementInterface::ElementInterface()
-        {}
+        {
+
+        }
         
-        ElementInterface::~ElementInterface() {}
+        ElementInterface::~ElementInterface()
+        {
+
+        }
         
         
         std::ostream& ElementInterface::streamOpenTag( std::ostream& os ) const
@@ -102,6 +108,32 @@ namespace mx
         bool ElementInterface::hasAttributes() const
         {
             return false;
+        }
+
+
+        bool ElementInterface::fromXElement( std::ostream& message, xml::XElement& xelement )
+        {
+            if( xelement.getIsProcessingInstruction() )
+            {
+                const auto next = xelement.getNextSibling();
+
+                if( next )
+                {
+                    return this->fromXElement( message, *next );
+                }
+            }
+            
+            const bool result = this->fromXElementImpl( message, xelement );
+
+            // check for processing instructions that follow this element
+            auto lookahead = xelement.getNextSibling();
+
+            while( lookahead != nullptr && lookahead->getIsProcessingInstruction() )
+            {
+                lookahead = lookahead->getNextSibling();
+            }
+
+            return result;
         }
 
 

@@ -90,7 +90,7 @@ namespace mx
 
             if ( getIsEndIter() )
             {
-                MX_THROW( "XElementIterator attempted to dereference and 'end' iterator" );
+                MX_THROW( "XElementIterator attempted to dereference an 'end' iterator" );
             }
 
             myReturnableElement = PugiElement{ *myIter, myXDoc.lock() };
@@ -107,7 +107,7 @@ namespace mx
 
             if ( getIsEndIter() )
             {
-                MX_THROW( "XElementIterator attempted to dereference and 'end' iterator" );
+                MX_THROW( "XElementIterator attempted to dereference an 'end' iterator" );
             }
 
             myReturnableElement = PugiElement{ *myIter, myXDoc.lock() };

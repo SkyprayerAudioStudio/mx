@@ -57,6 +57,8 @@ namespace mx
         {
             auto xdoc = mx::xml::XFactory::makeXDoc();
             xdoc->loadFile( filePath );
+            xdoc->saveStream( std::cout );
+            std::cout << std::endl;
 
             auto mxdoc = mx::core::makeDocument();
             
