@@ -283,7 +283,7 @@ namespace mxtest
     void generateExpectedFiles()
     {
         std::cout << "creating expected files" << std::flush;
-        const int maxConcurrency = 0;
+        const int maxConcurrency = 48;
         std::list<std::future<void>> q;
         auto testFiles = MxFileRepository::getTestFiles( MX_COMPILE_MAX_FILE_SIZE_BYTES );
         for( auto it = testFiles.cbegin(); it != testFiles.cend(); ++it )
