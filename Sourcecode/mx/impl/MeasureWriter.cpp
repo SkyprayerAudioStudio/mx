@@ -39,7 +39,6 @@
 #include "mx/core/elements/Fifths.h"
 #include "mx/core/elements/Footnote.h"
 #include "mx/core/elements/Footnote.h"
-#include "mx/core/elements/Footnote.h"
 #include "mx/core/elements/Forward.h"
 #include "mx/core/elements/FullNoteGroup.h"
 #include "mx/core/elements/FullNoteTypeChoice.h"
@@ -217,6 +216,7 @@ namespace mx
             }
             
             int localStaffCounter = 0;
+            
             for( const auto& staff : myMeasureData.staves )
             {
                 auto clefIter = staff.clefs.cbegin();
