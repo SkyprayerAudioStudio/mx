@@ -16,5 +16,8 @@
       <FileRef
          location = "group:../README.md">
       </FileRef>
+      <FileRef
+         location = "group:../junk/etude/etude.xcodeproj">
+      </FileRef>
    </Group>
 </Workspace>
