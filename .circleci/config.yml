@@ -17,3 +17,9 @@ jobs:
       - run:
           name: Run Cmake
           command: cmake .
+      - run:
+          name: List Directory Contents
+          command: ls -a
+      - run:
+          name: List Build Directory Contents
+          command: ls ./project -a
