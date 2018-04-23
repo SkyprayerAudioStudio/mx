@@ -21,5 +21,8 @@ jobs:
           name: List Directory Contents
           command: ls -a
       - run:
-          name: List Build Directory Contents
-          command: ls ./project -a
+          name: Compile Code
+          command: make
+      - run:
+          name: List Directory Contents
+          command: ls -a

@@ -9,5 +9,5 @@
 
 // The absolute path to the binary output directory.
 #ifndef MX_BINARY_OUTPUT_PATH
-#define MX_BINARY_OUTPUT_PATH "/Users/mjb/Documents/repos/mx/cmake-build-debug"
+#define MX_BINARY_OUTPUT_PATH "/Users/mjb/Documents/repos/mx"
 #endif
