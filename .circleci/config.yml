@@ -9,8 +9,11 @@ jobs:
           name: Install Build Tools
           command: apt-get update && apt-get -y install build-essential
       - run:
-          name: Greeting
-          command: echo Hello, world.
+          name: Install Cmake
+          command: apt-get -y install cmake
       - run:
-          name: Print the Current Time
-          command: date
+          name: create build dir
+          command: mkdir build && cd build
+      - run:
+          name: run cmake
+          command: cmake ..
