@@ -12,8 +12,8 @@ jobs:
           name: Install Cmake
           command: apt-get -y install cmake
       - run:
-          name: create build dir
-          command: mkdir build && cd build
+          name: List Directory Contents
+          command: ls -a
       - run:
-          name: run cmake
-          command: cmake ..
+          name: Run Cmake
+          command: cmake .
