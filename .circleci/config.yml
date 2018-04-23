@@ -6,6 +6,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install Build Tools
+          command: apt-get update && apt-get install build-essential
+      - run:
           name: Greeting
           command: echo Hello, world.
       - run:
