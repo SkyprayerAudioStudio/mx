@@ -12,10 +12,8 @@ jobs:
           name: Install Cmake
           command: apt remove cmake
           command: apt purge --auto-remove cmake
-          command: version=3.9
-          command: build=6
-          command: wget https://cmake.org/files/v$version/cmake-$version.$build.tar.gz
-          command: tar -xzvf cmake-$version.$build.tar.gz
+          command: wget https://cmake.org/files/v3.8/cmake-3.9.6.tar.gz
+          command: tar -xzvf cmake-3.9.6.tar.gz
           #command: cd cmake-$version.$build/ && ls -a
       - run:
           name: Print Cmake Version
