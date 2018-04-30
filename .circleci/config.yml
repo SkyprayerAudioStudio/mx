@@ -12,6 +12,9 @@ jobs:
           name: Install Cmake
           command: apt-get -y install cmake
       - run:
+          name: Print Cmake Version
+          command: cmake --version
+      - run:
           name: List Directory Contents
           command: ls -a
       - run:

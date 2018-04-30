@@ -11,6 +11,9 @@
       location = "container:"
       name = "Other">
       <FileRef
+         location = "group:../.circleci/config.yml">
+      </FileRef>
+      <FileRef
          location = "group:../CMakeLists.txt">
       </FileRef>
       <FileRef
