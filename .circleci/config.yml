@@ -16,7 +16,7 @@ jobs:
           command: build=6
           command: wget https://cmake.org/files/v$version/cmake-$version.$build.tar.gz
           command: tar -xzvf cmake-$version.$build.tar.gz
-          command: cd cmake-$version.$build/ && ls -a
+          #command: cd cmake-$version.$build/ && ls -a
       - run:
           name: Print Cmake Version
           command: cmake --version
