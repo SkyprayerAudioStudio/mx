@@ -9,11 +9,14 @@ jobs:
           name: Install Build Tools
           command: apt-get update && apt-get -y install build-essential
       - run:
-          name: Install Cmake
+          name: Remove Cmake
           command: apt remove cmake
-          command: apt purge --auto-remove cmake
-          command: wget https://cmake.org/files/v3.8/cmake-3.9.6.tar.gz
-          command: tar -xzvf cmake-3.9.6.tar.gz
+      - run:
+          name: Install Cmake
+          command: apt-get -y install cmake
+          #command: apt purge --auto-remove cmake
+          #command: wget https://cmake.org/files/v3.8/cmake-3.9.6.tar.gz
+          #command: tar -xzvf cmake-3.9.6.tar.gz
           #command: cd cmake-$version.$build/ && ls -a
       - run:
           name: Print Cmake Version
