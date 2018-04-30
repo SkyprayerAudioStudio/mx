@@ -12,12 +12,27 @@ jobs:
           name: Remove Cmake
           command: apt remove cmake
       - run:
-          name: Install Cmake
-          command: apt-get -y install cmake
+          name: Get Cmake Source
+          command: wget https://cmake.org/files/v3.11/cmake-3.11.1.tar.gz
+      - run:
+          name: ls
+          command: ls
+      - run:
+          name: Unpack the Cmake Source
+          command: tar -xzvf cmake-3.11.1.tar.gz
+      #- run:
+       #   name: Install Cmake
+        #  command: apt-get -y install cmake
           #command: apt purge --auto-remove cmake
           #command: wget https://cmake.org/files/v3.8/cmake-3.9.6.tar.gz
           #command: tar -xzvf cmake-3.9.6.tar.gz
           #command: cd cmake-$version.$build/ && ls -a
+      - run:
+          name: Run Cmake's Bootstrap Script
+          command: ./cmake-3.11.1/bootstrap
+      - run:
+          name: ls
+          command: ls
       - run:
           name: Print Cmake Version
           command: cmake --version
