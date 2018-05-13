@@ -30,13 +30,18 @@ if(MSVC)
 endif(MSVC)
 
 # Mx
-add_library(Mx STATIC ${SRC_MX_API} ${SRC_MX_CORE} ${SRC_MX_IMPL} ${SRC_MX_PUGIXML} ${SRC_MX_UTILITY} ${SRC_MX_XML})
 source_group( "api" FILES ${SRC_MX_API} )
 source_group( "core" FILES ${SRC_MX_CORE} )
 source_group( "impl" FILES ${SRC_MX_IMPL} )
 source_group( "pugixml" FILES ${SRC_MX_PUGIXML} )
 source_group( "utility" FILES ${SRC_MX_UTILITY} )
 source_group( "xml" FILES ${SRC_MX_XML} )
+add_library(Mx STATIC ${SRC_MX_API} ${SRC_MX_CORE} ${SRC_MX_IMPL} ${SRC_MX_PUGIXML} ${SRC_MX_UTILITY} ${SRC_MX_XML})
+#if(DEFINED ENV{MX_GCC_COVERAGE})
+  message(STATUS "MX_GCC_COVERAGE environment variable defined, compiling with code coverage.")
+  target_compile_options(Mx PRIVATE -fexceptions -fprofile-arcs -ftest-coverage -fPIC -O0 -lgcov --coverage)
+#endif()
+
 set_property(TARGET Mx PROPERTY CXX_STANDARD 17)
 
 file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/Sourcecode/mxtest/file/PathRoot.h
@@ -52,8 +57,7 @@ file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/Sourcecode/mxtest/file/PathRoot.h
 // The absolute path to the binary output directory.
 #ifndef MX_BINARY_OUTPUT_PATH
 #define MX_BINARY_OUTPUT_PATH \"${CMAKE_BINARY_DIR}\"
-#endif"
-        )
+#endif")
 
 # MxTest
 add_executable(MxTest ${SRC_MX_TEST_API} ${SRC_MX_TEST_CONTROL} ${SRC_MX_TEST_CORE} ${SRC_MX_TEST_FILE} ${SRC_MX_TEST_IMPL} ${SRC_MX_TEST_IMPORT} ${SRC_MX_TEST_UTILITY} ${SRC_MX_TEST_XML} ${SRC_CPUL})

@@ -4,6 +4,7 @@
 
 #pragma once
 #include "mx/core/Document.h"
+#include <limits>
 
 namespace mx
 {
@@ -102,11 +103,11 @@ namespace mx
             core::StringType midiName;
             PartParams()
                 : uniqueId( "X" )
-                , midiBank( INT_MIN )
-                , midiChannel(INT_MIN )
-                , midiProgram( INT_MIN )
-                , midiVolume( INT_MIN )
-                , midiPan( INT_MIN )
+                , midiBank( std::numeric_limits<int>::min() )
+                , midiChannel( std::numeric_limits<int>::min() )
+                , midiProgram( std::numeric_limits<int>::min() )
+                , midiVolume( std::numeric_limits<int>::min() )
+                , midiPan( std::numeric_limits<int>::min() )
             {}
         };
         

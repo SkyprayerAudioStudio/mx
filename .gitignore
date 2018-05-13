@@ -20,8 +20,8 @@ Xcode/MxTest.xcodeproj/xcuserdata/
 Xcode/mx.xcworkspace/xcuserdata/
 Proj/
 */project.xcworkspace/
-cmake-build-debug/
-cmake-build-release/
+cmake-build-debug*/
+cmake-build-release*/
 
 #########################################
 # Ignore Test Output and Expected Files #
