@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.12.2)
-project(Mx)
+project(Mx C CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
@@ -81,4 +81,6 @@ source_group( "utility" FILES ${SRC_MX_TEST_UTILITY} )
 source_group( "xml" FILES ${SRC_MX_TEST_XML} )
 source_group( "cpul" FILES ${SRC_CPUL} )
 target_link_libraries(MxTest Mx)
+find_package (Threads)
+target_link_libraries (MxTest ${CMAKE_THREAD_LIBS_INIT})
 set_property(TARGET MxTest PROPERTY CXX_STANDARD 17)
