@@ -2,55 +2,27 @@ version: 2
 jobs:
   build:
     docker:
-      - image: debian:stretch
+      - image: bitflipsoftware/cmake-gcc:1.1
     steps:
       - checkout
-      - run:
-          name: Install Build Tools
-          command: apt-get update && apt-get -y install build-essential
-      - run:
-          name: Remove Cmake
-          command: apt remove cmake
-      - run:
-          name: Install wget
-          command: apt-get -y install wget
-      - run:
-          name: Get Cmake Source
-          command: wget https://cmake.org/files/v3.11/cmake-3.11.1.tar.gz
-      - run:
-          name: ls
-          command: ls
-      - run:
-          name: Unpack the Cmake Source
-          command: tar -xzvf cmake-3.11.1.tar.gz
-      #- run:
-       #   name: Install Cmake
-        #  command: apt-get -y install cmake
-          #command: apt purge --auto-remove cmake
-          #command: wget https://cmake.org/files/v3.8/cmake-3.9.6.tar.gz
-          #command: tar -xzvf cmake-3.9.6.tar.gz
-          #command: cd cmake-$version.$build/ && ls -a
-      - run:
-          name: Run Cmake's Bootstrap Script
-          command: ./cmake-3.11.1/bootstrap
-      - run:
-          name: ls
-          command: ls
       - run:
           name: Print Cmake Version
           command: cmake --version
       - run:
-          name: List Directory Contents
-          command: ls -a
-      - run:
           name: Run Cmake
-          command: cmake .
+          command: mkdir -p cibuild && cd cibuild && cmake ../
       - run:
-          name: List Directory Contents
-          command: ls -a
-      - run:
-          name: Compile Code
-          command: make
-      - run:
-          name: List Directory Contents
-          command: ls -a
+          name: pwd
+          command: pwd
+      # - run:
+      #     name: Run Cmake
+      #     command: cmake .
+      # - run:
+      #     name: List Directory Contents
+      #     command: ls -a
+      # - run:
+      #     name: Compile Code
+      #     command: make
+      # - run:
+      #     name: List Directory Contents
+      #     command: ls -a
