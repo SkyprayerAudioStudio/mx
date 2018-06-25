@@ -5,6 +5,14 @@ jobs:
       - image: bitflipsoftware/cmake-gcc:1.1
     steps:
       - checkout
+      
+      # Download cache
+      - restore_cache:
+          keys:
+          - mxcache-{{ checksum ".circleci/cache-lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - mxcache-
+
       - run:
           name: Print Cmake Version
           command: cmake --version
@@ -12,17 +20,12 @@ jobs:
           name: Run Cmake
           command: mkdir -p cibuild && cd cibuild && cmake ../
       - run:
-          name: pwd
-          command: pwd
-      # - run:
-      #     name: Run Cmake
-      #     command: cmake .
-      # - run:
-      #     name: List Directory Contents
-      #     command: ls -a
-      # - run:
-      #     name: Compile Code
-      #     command: make
-      # - run:
-      #     name: List Directory Contents
-      #     command: ls -a
+          name: Compile
+          command: cd cibuild && make
+
+
+      - save_cache:
+          paths:
+            - cibuild
+
+          key: mxcache-{{ checksum ".circleci/cache-lock" }}
