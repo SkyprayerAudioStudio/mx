@@ -53,8 +53,6 @@ TEST( otherArticulation, NoteData )
     note.noteAttachmentData.marks.emplace_back( Placement::unspecified, MarkType::otherArticulation );
     note.noteAttachmentData.marks.back().positionData.isDefaultXSpecified = true;
     note.noteAttachmentData.marks.back().positionData.defaultX = 333.3;
-    note.noteAttachmentData.marks.back().name = "name";
-    note.noteAttachmentData.marks.back().smuflName = "smuflName";
 
     // round trip it through xml
     auto& mgr = DocumentManager::getInstance();
@@ -103,8 +101,6 @@ TEST( otherOrnament, NoteData )
     note.noteAttachmentData.marks.emplace_back( Placement::unspecified, MarkType::otherOrnament );
     note.noteAttachmentData.marks.back().positionData.isDefaultXSpecified = true;
     note.noteAttachmentData.marks.back().positionData.defaultX = 333.3;
-    note.noteAttachmentData.marks.back().name = "name";
-    note.noteAttachmentData.marks.back().smuflName = "smuflName";
 
     // round trip it through xml
     auto& mgr = DocumentManager::getInstance();
@@ -155,8 +151,6 @@ TEST( technical, NoteData )
     note.noteAttachmentData.marks.back().positionData.defaultX = 123.0;
 
     note.noteAttachmentData.marks.emplace_back( Placement::above, MarkType::otherTechnical );
-    note.noteAttachmentData.marks.back().name = "Bob";
-    note.noteAttachmentData.marks.back().smuflName = "Charlie";
     note.noteAttachmentData.marks.back().positionData.isDefaultYSpecified = true;
     note.noteAttachmentData.marks.back().positionData.defaultY = -456.0;
 

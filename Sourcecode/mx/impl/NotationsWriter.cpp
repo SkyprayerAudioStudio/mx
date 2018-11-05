@@ -606,10 +606,6 @@ namespace mx
                 {
                     element->setValue( core::XsString{ mark.name } );
                 }
-                else if ( !mark.smuflName.empty() )
-                {
-                    element->setValue( core::XsString{ mark.smuflName } );
-                }
             }
         }
 
@@ -707,10 +703,6 @@ namespace mx
                 if( !mark.name.empty() )
                 {
                     element->setValue( core::XsString{ mark.name } );
-                }
-                else if ( !mark.smuflName.empty() )
-                {
-                    element->setValue( core::XsString{ mark.smuflName } );
                 }
             }
         }

@@ -54,8 +54,7 @@ namespace mx
                 if( ( markData.markType != api::MarkType::otherOrnament ) &&
                     ( markData.markType != api::MarkType::unknownOrnament ) )
                 {
-                    markData.smuflName = api::MarkSmufl::getName( markType, markData.positionData.placement );
-                    markData.smuflCodepoint = api::MarkSmufl::getCodepoint( markType, markData.positionData.placement );
+                    // TODO - what to do here?
                 }
 
                 if( markData.markType != api::MarkType::unknownOrnament )
@@ -203,14 +202,6 @@ namespace mx
                         outMark.name = value;
                     }
                     
-                    const auto tempChar = api::Smufl::findCodepoint( value );
-                    
-                    if( tempChar != 0 )
-                    {
-                        outMark.smuflName = value;
-                        outMark.smuflCodepoint = tempChar;
-                    }
-
                     break;
                 }
                 default:
