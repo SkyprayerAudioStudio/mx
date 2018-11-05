@@ -67,6 +67,7 @@ namespace mx
             core::ArticulationsChoice::Choice convertArticulation( api::MarkType value ) const;
             api::MarkType convertArticulation( core::ArticulationsChoice::Choice value ) const;
             bool isArticulation( api::MarkType value ) const;
+            bool isCustom( api::MarkType value ) const;
             
             core::DynamicsEnum convertDynamic( api::MarkType value ) const;
             api::MarkType convertDynamic( core::DynamicsEnum value ) const;

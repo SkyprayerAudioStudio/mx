@@ -134,6 +134,36 @@ namespace mx
             ( markType == MarkType::tremoloSingleFive );
         }
         
+        
+        bool isMarkCustom( MarkType markType )
+        {
+            return ( markType == MarkType::customAccentTenuto );
+        }
+        
+        
+        std::string getCustomMarkName( MarkType markType )
+        {
+            switch ( markType )
+            {
+                case MarkType::customAccentTenuto:
+                    return "MX-CUSTOM-ACCENT-TENUTO";
+                default:
+                    break;
+            }
+            
+            return "";
+        }
+        
+        
+        MarkType getMarkTypeFromCustomString( const std::string& inString )
+        {
+            if( inString == "MX-CUSTOM-ACCENT-TENUTO" ) {
+                return api::MarkType::customAccentTenuto;
+            }
+            
+            return api::MarkType::customErrorUnknown;
+        }
+        
 
         int numTremoloSlashes( MarkType markType )
         {

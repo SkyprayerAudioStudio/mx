@@ -86,6 +86,69 @@ TEST( otherArticulation, NoteData )
 }
 T_END;
 
+TEST( customErrorUnknown, MarkData )
+{
+    const auto expectedMark = mx::api::MarkType::customErrorUnknown;
+    const std::string expectedString = mx::api::markStringCustomErrorUnknown;
+
+    const auto isCustom = mx::api::isMarkCustom( expectedMark );
+    CHECK( !isCustom );
+    const auto actualString = mx::api::getCustomMarkName( expectedMark );
+    CHECK_EQUAL( expectedString, actualString );
+    const auto actualMark = mx::api::getMarkTypeFromCustomString( actualString );
+    CHECK( expectedMark == actualMark );
+}
+
+TEST( customArticulation, NoteData )
+{
+    ScoreData score;
+    score.parts.emplace_back();
+    auto& part = score.parts.back();
+    part.measures.emplace_back();
+    auto& measure = part.measures.back();
+    measure.staves.emplace_back();
+    auto& staff = measure.staves.back();
+    auto& voice = staff.voices[0];
+    voice.notes.emplace_back();
+    auto& note = voice.notes.back();
+    
+    note.noteAttachmentData.marks.emplace_back( Placement::unspecified, MarkType::customAccentTenuto );
+    note.noteAttachmentData.marks.back().positionData.isDefaultXSpecified = true;
+    note.noteAttachmentData.marks.back().positionData.defaultX = 333.3;
+    
+    // round trip it through xml
+    auto& mgr = DocumentManager::getInstance();
+    auto docId = mgr.createFromScore( score );
+    std::stringstream ss;
+    mgr.writeToStream(docId, ss);
+    // TODO - SMUFLKILL - remove
+    mgr.writeToFile( docId, "./bloop.xml" );
+    mgr.destroyDocument(docId);
+    const std::string xml = ss.str();
+    std::istringstream iss{ xml };
+    docId = mgr.createFromStream( iss );
+    auto oscore = mgr.getData(docId);
+    
+    // get the data after the round trip
+    auto& opart = oscore.parts.back();
+    auto& omeasure = opart.measures.back();
+    auto& ostaff = omeasure.staves.back();
+    auto& ovoice = ostaff.voices[0];
+    auto& onote = ovoice.notes.back();
+    auto& oattachments = onote.noteAttachmentData;
+    auto& omarks = oattachments.marks;
+    auto oIter = omarks.cbegin();
+    
+    auto md = *oIter;
+    CHECK( md.markType == MarkType::customAccentTenuto );
+    CHECK( md.positionData.isDefaultXSpecified );
+    CHECK( !md.positionData.isDefaultYSpecified );
+    CHECK_DOUBLES_EQUAL( 333.3, md.positionData.defaultX, 0.00001 );
+    CHECK_EQUAL( mx::api::markStringCustomAccentTenuto, md.name );
+    CHECK( md.positionData.placement == Placement::unspecified );
+}
+T_END;
+
 TEST( otherOrnament, NoteData )
 {
     ScoreData score;

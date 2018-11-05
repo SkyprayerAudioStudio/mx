@@ -171,7 +171,7 @@ namespace mx
             std::pair<core::CssFontSize, api::CssSize>{ core::CssFontSize::xxLarge, api::CssSize::xxLarge },
         };
         
-        
+        // TODO - SMUFLKILL
         const std::map<core::ArticulationsChoice::Choice, api::MarkType> Converter::articulationsMap =
         {
             std::pair<core::ArticulationsChoice::Choice, api::MarkType>{ core::ArticulationsChoice::Choice::accent, api::MarkType::accent },
@@ -1616,6 +1616,12 @@ namespace mx
             value == api::MarkType::stress ||
             value == api::MarkType::unstress ||
             value == api::MarkType::otherArticulation;
+        }
+        
+        
+        bool Converter::isCustom( api::MarkType value ) const
+        {
+            return value == api::MarkType::customAccentTenuto;
         }
         
         

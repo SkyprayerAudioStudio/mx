@@ -175,7 +175,15 @@ namespace mx
             
             pedal, // the typical piano pedal mark
             damp,  // the typical piano end-pedal mark
+            
+            // these are cust additions that will be written to, and read from, the
+            // other-articulations (or other-*) elements.
+            customErrorUnknown, // used to represent an error when parsing from a string
+            customAccentTenuto,
         };
+        
+        static constexpr const char* const markStringCustomErrorUnknown = "";
+        static constexpr const char* const markStringCustomAccentTenuto = "gjhsldjhglskdjhfg";
 
         bool isMarkDynamic( MarkType );
         bool isMarkArticulation( MarkType );
@@ -184,6 +192,9 @@ namespace mx
         bool isMarkPedal( MarkType );
         bool isMarkTechnical( MarkType );
         bool isMarkTremolo( MarkType );
+        bool isMarkCustom( MarkType );
+        std::string getCustomMarkName( MarkType );
+        MarkType getMarkTypeFromCustomString( const std::string& );
         int numTremoloSlashes( MarkType );
                 
         struct MarkData
