@@ -53,6 +53,7 @@ TEST( otherArticulation, NoteData )
     note.noteAttachmentData.marks.emplace_back( Placement::unspecified, MarkType::otherArticulation );
     note.noteAttachmentData.marks.back().positionData.isDefaultXSpecified = true;
     note.noteAttachmentData.marks.back().positionData.defaultX = 333.3;
+    note.noteAttachmentData.marks.back().name = "october 2018";
 
     // round trip it through xml
     auto& mgr = DocumentManager::getInstance();
@@ -80,7 +81,7 @@ TEST( otherArticulation, NoteData )
     CHECK( md.positionData.isDefaultXSpecified );
     CHECK( !md.positionData.isDefaultYSpecified );
     CHECK_DOUBLES_EQUAL( 333.3, md.positionData.defaultX, 0.00001 );
-    CHECK_EQUAL( "name", md.name );
+    CHECK_EQUAL( "october 2018", md.name );
     CHECK( md.positionData.placement == Placement::unspecified );
 }
 T_END;
@@ -101,6 +102,7 @@ TEST( otherOrnament, NoteData )
     note.noteAttachmentData.marks.emplace_back( Placement::unspecified, MarkType::otherOrnament );
     note.noteAttachmentData.marks.back().positionData.isDefaultXSpecified = true;
     note.noteAttachmentData.marks.back().positionData.defaultX = 333.3;
+    note.noteAttachmentData.marks.back().name = "**()00))&</>";
 
     // round trip it through xml
     auto& mgr = DocumentManager::getInstance();
@@ -128,7 +130,7 @@ TEST( otherOrnament, NoteData )
     CHECK( md.positionData.isDefaultXSpecified );
     CHECK( !md.positionData.isDefaultYSpecified );
     CHECK_DOUBLES_EQUAL( 333.3, md.positionData.defaultX, 0.00001 );
-    CHECK_EQUAL( "name", md.name );
+    CHECK_EQUAL( "**()00))&</>", md.name );
     CHECK( md.positionData.placement == Placement::unspecified );
 }
 T_END;
@@ -153,6 +155,7 @@ TEST( technical, NoteData )
     note.noteAttachmentData.marks.emplace_back( Placement::above, MarkType::otherTechnical );
     note.noteAttachmentData.marks.back().positionData.isDefaultYSpecified = true;
     note.noteAttachmentData.marks.back().positionData.defaultY = -456.0;
+    note.noteAttachmentData.marks.back().name = "Bob";
 
     // round trip it through xml
     auto& mgr = DocumentManager::getInstance();

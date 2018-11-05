@@ -51,10 +51,10 @@ namespace mx
                 parseOrnament( *ornament, markData );
                 markData.tickTimePosition = myCursor.tickTimePosition;
 
-                if( ( markData.markType != api::MarkType::otherOrnament ) &&
-                    ( markData.markType != api::MarkType::unknownOrnament ) )
+                if( ( markData.markType == api::MarkType::otherOrnament ) ||
+                    ( markData.markType == api::MarkType::unknownOrnament ) )
                 {
-                    // TODO - what to do here?
+                    // TODO - SMUFLKILL - use the name to see if we have a custom enum value
                 }
 
                 if( markData.markType != api::MarkType::unknownOrnament )

@@ -597,6 +597,7 @@ namespace mx
             }
             else if( ( mark.markType == api::MarkType::unknownOrnament ) ||
                      ( mark.markType == api::MarkType::otherOrnament ) )
+                // TODO - handle custom enum values?
             {
                 auto element = ornamentsChoice->getOtherOrnament();
                 auto attributes = element->getAttributes();

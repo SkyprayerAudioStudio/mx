@@ -32,11 +32,6 @@ namespace mx
             markData.tickTimePosition = myCursor.tickTimePosition;
             markData.name = myDynamic.getValue().getValueString();
             markData.positionData = impl::getPositionData( *myDynamic.getAttributes() );
-
-            if( dynamicType == core::DynamicsEnum::otherDynamics )
-            {
-                // TODO - what to do here?
-            }
             outMarks.emplace_back( std::move( markData ) );
         }
     }

@@ -425,14 +425,7 @@ namespace mx
                 placement = myOutDirectionData.placement;
             }
             
-            if( valueObject.getValue() == core::DynamicsEnum::otherDynamics )
-            {
-                // TODO - what should we do?
-            }
-            else
-            {
-                // TODO - what should we do?
-            }
+            mark.name = valueObject.getValueString();            
             myOutDirectionData.marks.emplace_back( std::move( mark ) );
         }
         
