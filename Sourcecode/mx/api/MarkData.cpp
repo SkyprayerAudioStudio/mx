@@ -146,7 +146,7 @@ namespace mx
             switch ( markType )
             {
                 case MarkType::customAccentTenuto:
-                    return "MX-CUSTOM-ACCENT-TENUTO";
+                    return markStringCustomAccentTenuto;
                 default:
                     break;
             }
@@ -157,7 +157,7 @@ namespace mx
         
         MarkType getMarkTypeFromCustomString( const std::string& inString )
         {
-            if( inString == "MX-CUSTOM-ACCENT-TENUTO" ) {
+            if( inString == markStringCustomAccentTenuto ) {
                 return api::MarkType::customAccentTenuto;
             }
             

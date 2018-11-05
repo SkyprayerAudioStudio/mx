@@ -1619,12 +1619,6 @@ namespace mx
         }
         
         
-        bool Converter::isCustom( api::MarkType value ) const
-        {
-            return value == api::MarkType::customAccentTenuto;
-        }
-        
-        
         core::DynamicsEnum Converter::convertDynamic( api::MarkType value ) const
         {
             return findCoreItem( dynamicsMap, core::DynamicsEnum::otherDynamics, value );

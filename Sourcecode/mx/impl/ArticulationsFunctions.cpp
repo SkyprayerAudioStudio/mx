@@ -155,6 +155,14 @@ namespace mx
                 {
                     parseMarkDataAttributes( *inArticulation.getOtherArticulation()->getAttributes(), outMark );
                     outMark.name = inArticulation.getOtherArticulation()->getValue().getValue();
+                    
+                    const auto possibleCustomMarkType = mx::api::getMarkTypeFromCustomString( outMark.name );
+                    
+                    if( possibleCustomMarkType != mx::api::MarkType::customErrorUnknown )
+                    {
+                        outMark.markType = possibleCustomMarkType;
+                    }
+                    
                     break;
                 }
                 default:

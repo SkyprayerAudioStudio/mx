@@ -397,7 +397,7 @@ namespace mx
         
         void NotationsWriter::addArticulation( const api::MarkData& mark, const core::ArticulationsPtr& outArticulationsPtr ) const
         {
-            if( !myConverter.isArticulation( mark.markType ) && !myConverter.isCustom( mark.markType ) )
+            if( !myConverter.isArticulation( mark.markType ) && !api::isMarkCustom( mark.markType ) )
             {
                 return;
             }
