@@ -189,6 +189,7 @@ namespace mx
         struct MarkData
         {
             MarkType markType;
+            std::string name;
             int tickTimePosition;
             PrintData printData;
             PositionData positionData;
