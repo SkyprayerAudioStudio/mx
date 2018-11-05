@@ -44,7 +44,7 @@ namespace mxtest
         auto directionMarkP = &directionP->marks.back();
         directionMarkP->markType = MarkType::ffff;
         directionMarkP->name = "ffff";
-        auto glyph = &MarkSmufl::getSmuflGlyphname( directionMarkP->markType );
+        auto glyph = &MarkSmufl::getXXX_SMUFL_GRYPHNAME( directionMarkP->markType );
         directionMarkP->smuflName = glyph->below;
         directionMarkP->smuflCodepoint = Smufl::findCodepoint( directionMarkP->smuflName );
         directionMarkP->tickTimePosition = 0;
@@ -107,7 +107,7 @@ namespace mxtest
         directionMarkP->tickTimePosition = directionP->tickTimePosition;
         directionMarkP->markType = MarkType::p;
         directionMarkP->name = "p";
-        glyph = &MarkSmufl::getSmuflGlyphname( directionMarkP->markType );
+        glyph = &MarkSmufl::getXXX_SMUFL_GRYPHNAME( directionMarkP->markType );
         directionMarkP->smuflName = glyph->below;
         directionMarkP->smuflCodepoint = Smufl::findCodepoint( directionMarkP->smuflName );
         
