@@ -468,6 +468,13 @@
 		29DC3C98225C0FC300814240 /* RootStepTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29DC3ACB225C0FC200814240 /* RootStepTest.cpp */; };
 		29DC3C99225C0FC300814240 /* StaffDistanceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29DC3ACC225C0FC200814240 /* StaffDistanceTest.cpp */; };
 		29DC3C9A225C0FC300814240 /* StaccatoTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29DC3ACD225C0FC200814240 /* StaccatoTest.cpp */; };
+		29DC3C9D225C10ED00814240 /* libMx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29DC3C9C225C10ED00814240 /* libMx.a */; };
+		29DC3CAE225C11C100814240 /* cpulTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29DC3C9F225C11C000814240 /* cpulTest.cpp */; };
+		29DC3CAF225C11C100814240 /* cpulTestRegistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29DC3CA5225C11C000814240 /* cpulTestRegistry.cpp */; };
+		29DC3CB0225C11C100814240 /* cpulFailure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29DC3CA8225C11C000814240 /* cpulFailure.cpp */; };
+		29DC3CB1225C11C100814240 /* cpulRun.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29DC3CAA225C11C000814240 /* cpulRun.cpp */; };
+		29DC3CB2225C11C100814240 /* cpulTestResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29DC3CAB225C11C000814240 /* cpulTestResult.cpp */; };
+		29DC3CB3225C11C100814240 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29DC3CAC225C11C000814240 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1082,6 +1089,22 @@
 		29DC3ACB225C0FC200814240 /* RootStepTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RootStepTest.cpp; sourceTree = "<group>"; };
 		29DC3ACC225C0FC200814240 /* StaffDistanceTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StaffDistanceTest.cpp; sourceTree = "<group>"; };
 		29DC3ACD225C0FC200814240 /* StaccatoTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StaccatoTest.cpp; sourceTree = "<group>"; };
+		29DC3C9C225C10ED00814240 /* libMx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMx.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		29DC3C9F225C11C000814240 /* cpulTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpulTest.cpp; sourceTree = "<group>"; };
+		29DC3CA0225C11C000814240 /* cpulTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpulTest.h; sourceTree = "<group>"; };
+		29DC3CA1225C11C000814240 /* cpulTestTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpulTestTimer.h; sourceTree = "<group>"; };
+		29DC3CA2225C11C000814240 /* cpulTestHarness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpulTestHarness.h; sourceTree = "<group>"; };
+		29DC3CA3225C11C000814240 /* cpulRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpulRun.h; sourceTree = "<group>"; };
+		29DC3CA4225C11C000814240 /* cpulTestRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpulTestRegistry.h; sourceTree = "<group>"; };
+		29DC3CA5225C11C000814240 /* cpulTestRegistry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpulTestRegistry.cpp; sourceTree = "<group>"; };
+		29DC3CA6225C11C000814240 /* cpulVsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpulVsTest.h; sourceTree = "<group>"; };
+		29DC3CA7225C11C000814240 /* cpulTestResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpulTestResult.h; sourceTree = "<group>"; };
+		29DC3CA8225C11C000814240 /* cpulFailure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpulFailure.cpp; sourceTree = "<group>"; };
+		29DC3CA9225C11C000814240 /* cpulDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpulDefines.h; sourceTree = "<group>"; };
+		29DC3CAA225C11C000814240 /* cpulRun.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpulRun.cpp; sourceTree = "<group>"; };
+		29DC3CAB225C11C000814240 /* cpulTestResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpulTestResult.cpp; sourceTree = "<group>"; };
+		29DC3CAC225C11C000814240 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		29DC3CAD225C11C000814240 /* cpulFailure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpulFailure.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1089,6 +1112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29DC3C9D225C10ED00814240 /* libMx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1099,12 +1123,14 @@
 			isa = PBXGroup;
 			children = (
 				29DC3867225C0EF200814240 /* mxtest */,
+				29DC3C9B225C10ED00814240 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		29DC3867225C0EF200814240 /* mxtest */ = {
 			isa = PBXGroup;
 			children = (
+				29DC3C9E225C118E00814240 /* cpul */,
 				29DC389B225C0FC100814240 /* api */,
 				29DC388D225C0FC100814240 /* control */,
 				29DC38C3225C0FC100814240 /* core */,
@@ -1772,6 +1798,37 @@
 			path = core;
 			sourceTree = "<group>";
 		};
+		29DC3C9B225C10ED00814240 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29DC3C9C225C10ED00814240 /* libMx.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		29DC3C9E225C118E00814240 /* cpul */ = {
+			isa = PBXGroup;
+			children = (
+				29DC3CA9225C11C000814240 /* cpulDefines.h */,
+				29DC3CA8225C11C000814240 /* cpulFailure.cpp */,
+				29DC3CAD225C11C000814240 /* cpulFailure.h */,
+				29DC3CAA225C11C000814240 /* cpulRun.cpp */,
+				29DC3CA3225C11C000814240 /* cpulRun.h */,
+				29DC3C9F225C11C000814240 /* cpulTest.cpp */,
+				29DC3CA0225C11C000814240 /* cpulTest.h */,
+				29DC3CA2225C11C000814240 /* cpulTestHarness.h */,
+				29DC3CA5225C11C000814240 /* cpulTestRegistry.cpp */,
+				29DC3CA4225C11C000814240 /* cpulTestRegistry.h */,
+				29DC3CAB225C11C000814240 /* cpulTestResult.cpp */,
+				29DC3CA7225C11C000814240 /* cpulTestResult.h */,
+				29DC3CA1225C11C000814240 /* cpulTestTimer.h */,
+				29DC3CA6225C11C000814240 /* cpulVsTest.h */,
+				29DC3CAC225C11C000814240 /* main.cpp */,
+			);
+			name = cpul;
+			path = ../cpul;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1826,6 +1883,7 @@
 				29DC3B55225C0FC200814240 /* FermataTest.cpp in Sources */,
 				29DC3BD8225C0FC300814240 /* GroupTest.cpp in Sources */,
 				29DC3B98225C0FC300814240 /* DegreeValueTest.cpp in Sources */,
+				29DC3CAE225C11C100814240 /* cpulTest.cpp in Sources */,
 				29DC3C36225C0FC300814240 /* ClefTest.cpp in Sources */,
 				29DC3B0F225C0FC200814240 /* PartListTest.cpp in Sources */,
 				29DC3B21225C0FC200814240 /* HarmonicTypeChoiceTest.cpp in Sources */,
@@ -1918,6 +1976,7 @@
 				29DC3B80225C0FC300814240 /* HoleTest.cpp in Sources */,
 				29DC3B8E225C0FC300814240 /* DampAllTest.cpp in Sources */,
 				29DC3BC4225C0FC300814240 /* StaffSizeTest.cpp in Sources */,
+				29DC3CB1225C11C100814240 /* cpulRun.cpp in Sources */,
 				29DC3C86225C0FC300814240 /* FingernailsTest.cpp in Sources */,
 				29DC3B3A225C0FC200814240 /* TuningAlterTest.cpp in Sources */,
 				29DC3BE9225C0FC300814240 /* BendChoiceTest.cpp in Sources */,
@@ -2010,12 +2069,14 @@
 				29DC3B57225C0FC200814240 /* PlayTest.cpp in Sources */,
 				29DC3C11225C0FC300814240 /* SourceTest.cpp in Sources */,
 				29DC3C6F225C0FC300814240 /* GraceNoteGroupTest.cpp in Sources */,
+				29DC3CB0225C11C100814240 /* cpulFailure.cpp in Sources */,
 				29DC3B05225C0FC200814240 /* PedalStepTest.cpp in Sources */,
 				29DC3BC7225C0FC300814240 /* CreditChoiceTest.cpp in Sources */,
 				29DC3C38225C0FC300814240 /* MusicDataGroupTest.cpp in Sources */,
 				29DC3C5C225C0FC300814240 /* ModeTest.cpp in Sources */,
 				29DC3C8F225C0FC300814240 /* TransposeTest.cpp in Sources */,
 				29DC3BD1225C0FC300814240 /* LineWidthTest.cpp in Sources */,
+				29DC3CB2225C11C100814240 /* cpulTestResult.cpp in Sources */,
 				29DC3B90225C0FC300814240 /* ForwardTest.cpp in Sources */,
 				29DC3BBE225C0FC300814240 /* SoftwareTest.cpp in Sources */,
 				29DC3C02225C0FC300814240 /* ElisionTest.cpp in Sources */,
@@ -2194,6 +2255,7 @@
 				29DC3BA5225C0FC300814240 /* WoodTest.cpp in Sources */,
 				29DC3B0C225C0FC200814240 /* SemiPitchedTest.cpp in Sources */,
 				29DC3C41225C0FC300814240 /* TechnicalChoiceTest.cpp in Sources */,
+				29DC3CAF225C11C100814240 /* cpulTestRegistry.cpp in Sources */,
 				29DC3ADA225C0FC200814240 /* PartWriterTest.cpp in Sources */,
 				29DC3AF0225C0FC200814240 /* ApiK007cTest.cpp in Sources */,
 				29DC3AD5225C0FC200814240 /* DirectionReaderTest.cpp in Sources */,
@@ -2280,6 +2342,7 @@
 				29DC3BA8225C0FC300814240 /* GlassTest.cpp in Sources */,
 				29DC3B3D225C0FC200814240 /* ArrowStyleTest.cpp in Sources */,
 				29DC3C0F225C0FC300814240 /* GroupNameDisplayTest.cpp in Sources */,
+				29DC3CB3225C11C100814240 /* main.cpp in Sources */,
 				29DC3C8A225C0FC300814240 /* NotationsTest.cpp in Sources */,
 				29DC3C76225C0FC300814240 /* DoitTest.cpp in Sources */,
 				29DC3C48225C0FC300814240 /* IntegersTest.cpp in Sources */,

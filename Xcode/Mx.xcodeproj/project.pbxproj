@@ -10013,10 +10013,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					$PROJECT_DIR/../Sourcecode/private,
-					$PROJECT_DIR/../Sourcecode/include,
-				);
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
@@ -10026,7 +10023,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				SDKROOT = "";
-				USER_HEADER_SEARCH_PATHS = ../Sourcecode/;
+				USER_HEADER_SEARCH_PATHS = "$PROJECT_DIR/../Sourcecode/private $PROJECT_DIR/../Sourcecode/include";
 			};
 			name = Debug;
 		};
@@ -10091,10 +10088,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					$PROJECT_DIR/../Sourcecode/private,
-					$PROJECT_DIR/../Sourcecode/include,
-				);
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -10103,7 +10097,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				SDKROOT = "";
-				USER_HEADER_SEARCH_PATHS = ../Sourcecode/;
+				USER_HEADER_SEARCH_PATHS = "$PROJECT_DIR/../Sourcecode/private $PROJECT_DIR/../Sourcecode/include";
 			};
 			name = Release;
 		};
