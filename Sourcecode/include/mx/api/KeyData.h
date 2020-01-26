@@ -3,6 +3,7 @@
 // Distributed under the MIT License
 
 #pragma once
+#include "mx/api/KeyComponent.h"
 
 namespace mx
 {
@@ -14,15 +15,6 @@ namespace mx
             unsupported, // a mode value was provided but is not supported
             major,
             minor
-        };
-
-        struct KeyComponent
-        {
-            // The amount that notes on this line should be altered, in semitones.
-            double alter;
-
-            // The accidental to display on this line.
-            Accidental accidental;
         };
 
         // KeyData represents a key signature. It can be in one of two configurations. Either you specify
@@ -42,8 +34,8 @@ namespace mx
         // If you want to create a custom time signature, you can do so like this. Here we are creating a
         // key where C's are sharp and D's are one-quarter-tone sharp.
         //
-        // KeyComponent cSharp{ 1, Accidental::sharp };
-        // KeyComponent dQuarterTone{ 0.5, Accidental:quarterSharp };
+        // KeyComponent cSharp{ Step::c, 1, Accidental::sharp };
+        // KeyComponent dQuarterTone{ Step::d, 0.5, Accidental:quarterSharp };
         // KeyData key;
         // key.custom.push_back( cSharp );
         // key.custom.push_back( dQuarterTone );
@@ -81,12 +73,17 @@ namespace mx
 
             // TODO support position data and/or other attribtues
 
+            // Supports the creation of customized, non-traditional key signatures by specifying the exact note
+            // alterations. When custom is non-empty, then fifths and mode are ignored.
+            std::vector<KeyComponent> custom;
+
             KeyData()
                 : fifths{ 0 }
                   , cancel{ 0 }
                   , mode{ KeyMode::unspecified }
                   , tickTimePosition{ 0 }
                   , staffIndex{ -1 }
+                  , custom{}
             {
 
             }
@@ -98,6 +95,7 @@ namespace mx
         MXAPI_EQUALS_MEMBER( mode )
         MXAPI_EQUALS_MEMBER( tickTimePosition )
         MXAPI_EQUALS_MEMBER( staffIndex )
+        MXAPI_EQUALS_MEMBER( custom )
         MXAPI_EQUALS_END;
 
         MXAPI_NOT_EQUALS_AND_VECTORS( KeyData );
