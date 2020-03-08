@@ -10,6 +10,7 @@
 
 #define EZXML_CHECK_NULL_NODE if( getIsNull() ) { EZXML_THROW_XNULL; }
 #define EZXML_CHECK_NODE_ELEMENT if ( myNodeType != pugi::node_element && myNodeType != pugi::node_pi ) { EZXML_THROW( "bad internal state, node should be an element" ); }
+#define EZXML_DEBUG
 
 namespace ezxml
 {
@@ -35,12 +36,29 @@ namespace ezxml
         {
             EZXML_THROW( "bad internal state, node should be an element" );
         }
+#ifdef EZXML_DEBUG
+        if (isElement || isProcessingInstruction)
+        {
+            std::stringstream ss;
+            ss << ( isElement ? "element " : "processing-instruction " );
+            ss << getName();
+            if (isProcessingInstruction)
+            {
+                ss << " : " << getValue();
+            }
+            EZXML_LOG( ss.str() );
+        }
+#endif
     }
 
 
     XElementPtr
     PugiElement::clone() const
     {
+        if (getIsProcessingInstruction())
+        {
+            EZXML_LOG(std::string{ "cloning processing instruction: " } + getName())
+        }
         return XElementPtr( new PugiElement{ myNode, myXDoc.lock() } );
     }
 
@@ -107,6 +125,7 @@ namespace ezxml
         {
             return "";
         }
+        EZXML_LOG(std::string{ "returning name: " } + myNode.name());
         return std::string{ myNode.name() };
     }
 
@@ -121,10 +140,13 @@ namespace ezxml
 
         if( getIsProcessingInstruction() )
         {
+
+            EZXML_LOG( std::string{ "returning pi value: " } + myNode.value() );
             return std::string{ myNode.value() };
         }
         else
         {
+            EZXML_LOG(std::string{ "returning element text: " } +myNode.text().as_string());
             return std::string{ myNode.text().as_string() };
         }
     }

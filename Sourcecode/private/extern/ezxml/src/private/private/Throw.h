@@ -32,6 +32,18 @@ throw std::runtime_error (                              \
 + std::string( throw_error_message ) );
 #endif
 
+#ifndef EZXML_LOG
+#define EZXML_LOG(throw_error_message)                  \
+std::cout << std::string (                              \
+  std::string( __FILENAME__ )                           \
++ std::string(" (line ")                                \
++ std::string( std::to_string(__LINE__ ) )              \
++ std::string(") ")                                     \
++ std::string( __FUNCTION__ )                           \
++ std::string(": '")                                    \
++ std::string( throw_error_message ) ) << std::endl;
+#endif
+
 #ifndef EZXML_THROW_NULL
 #define THROW_NULL THROW("null pointer encountered")
 #endif

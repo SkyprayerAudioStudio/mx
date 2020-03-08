@@ -7,6 +7,7 @@
 #include "ezxml/XElementIterator.h"
 #include "ezxml/XFactory.h"
 #include <sstream>
+#include "mx/utility/Throw.h"
 
 namespace mx
 {
@@ -18,10 +19,11 @@ namespace mx
         {
 
         }
+
         
         ElementInterface::~ElementInterface()
         {
-
+            std::cout << "ElementInterface::~ElementInterface()" << std::endl;
         }
         
         
@@ -134,25 +136,53 @@ namespace mx
 
             if( xelement.getType() == ezxml::XElementType::element )
             {
+                MX_LOG("trace");
                 auto childIter = xelement.beginWithProcessingInstructions();
+
+                MX_LOG("trace"); 
                 const auto childEnd = xelement.end();
 
                 while( childIter != childEnd && childIter->getIsProcessingInstruction() )
                 {
-                    ProcessingInstruction pi{ childIter->getName(), childIter->getValue() };
+                    auto n = childIter->getName();
+                    auto v = childIter->getValue();
+                    MX_LOG("trace");
+                    ProcessingInstruction pi{ n, v };
+                    
+
+                    MX_LOG("trace"); 
                     pi.setIsChild( true );
+                    
+
+                    MX_LOG("trace"); 
                     addProcessingInstruction( std::move( pi ) );
+                    
+
+                    MX_LOG("trace"); 
                     ++childIter;
                 }
             }
 
+
+            MX_LOG("trace"); 
             auto lookahead = xelement.getNextSibling();
 
             while( lookahead != nullptr && lookahead->getIsProcessingInstruction() )
             {
+
+                MX_LOG("trace");
                 ProcessingInstruction pi{ lookahead->getName(), lookahead->getValue() };
+                
+
+                MX_LOG("trace"); 
                 pi.setIsChild( false );
+                
+
+                MX_LOG("trace"); 
                 addProcessingInstruction( std::move( pi ) );
+                
+
+                MX_LOG("trace"); 
                 lookahead = lookahead->getNextSibling();
             }
 
