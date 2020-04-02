@@ -41,7 +41,7 @@ mkdir build
 cd build
 cmake ../mx -DMX_BUILD_TESTS=on -DMX_BUILD_CORE_TESTS=off -DMX_BUILD_EXAMPLES=on
 make -j6
-./MxTest
+./mxtest
 ```
 
 The Xcode project (checked-in to the repo) has targets for iOS and macOS frameworks and dylibs.  These are not specified in the cmake file.
@@ -643,7 +643,7 @@ int main(int argc, const char * argv[])
 
 ### Unit Test Framework
 
-An executable program named MxTest is also included in the project.  MxTest utilizes the CppUnitLite macro library by Michael Feathers.  Licensing of this library is not clear, [here is a link](http://c2.com/cgi/wiki?CppUnitLite) to the source of this library.
+An executable program named mxtest is also included in the project.  mxtest utilizes the CppUnitLite macro library by Michael Feathers.  Licensing of this library is not clear, [here is a link](http://c2.com/cgi/wiki?CppUnitLite) to the source of this library.
 CppUnitLite appears to be abandonware, but it is very useful.
 Here are some additional CppUnitLite links
   * [http://www.objectmentor.com/resources/downloads.html](http://www.objectmentor.com/resources/downloads.html)
@@ -672,7 +672,7 @@ The tests are slow to compile, see the *Compiling* section for more info on how 
 
 **Historical Note: August 11, 2016:** The feature to import MusicXML files is essentially complete with most "round-trip" integration tests passing.
 
-**Historical Note: June 27, 2016:** An "integration" tester has been added to the MxTest executable.  This exists in ImportTest.cpp, and ImportTestImpl.h/cpp.  A top level directory "Resources" has been added to hold test input (i.e. "golden") files.  The input files are gathered from Recordare, Lilypond and MuseScore and to this I have added a few of my own scores as exported by Finale Dolet.
+**Historical Note: June 27, 2016:** An "integration" tester has been added to the mxtest executable.  This exists in ImportTest.cpp, and ImportTestImpl.h/cpp.  A top level directory "Resources" has been added to hold test input (i.e. "golden") files.  The input files are gathered from Recordare, Lilypond and MuseScore and to this I have added a few of my own scores as exported by Finale Dolet.
 
 Each of these test input files has been "scrubbed" using the XDoc classes (i.e. it has been round-tripped through pugixml and has been updated to a normalized MusicXML 3.0 header format.  The resultant scrubbed files are in Resources/expected.  During the test run, a csv file is written in Resources/testOutput recording a row for each test (Pass/Fail, duration of test, messages, etc).  Each time a test failure is encountered the expected file and the error file will be saved to the Resources/testOutput directory to allow for visual inspection.
 
